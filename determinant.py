@@ -1,44 +1,52 @@
-from utils import gen_matrice_nulle
+def trouver_sous_matrice(index: int, matrice: list[list[int]]):
+    # trouver la matrice qu'il faut multiplier par le nombre de la ligne d'en haut avec son index
+    # EXEMPLE CI-DESSOUS
+    # Matrice 3x3
+    # [
+    #  [a1,a2,a3],
+    #  [a4,a5,a6]
+    #  [a7,a8,a9]
+    # ]
+    # On veut trouver le determinant de la sous-matrice à multiplier avec le nombre a1
+    # cette sous matrice est
+    # det([
+    #  [a5, a6],
+    #  [a8, a9]
+    # ])
+    # Puis a2
+    # cette sous matrice est
+    # det([
+    #  [a4, a6],
+    #  [a7, a9]
+    # ])
+    # On soustrait les resultats obtenus puis on additionne le resultat de a3 par [[a4,a5], [a7, a8]]
 
+    sous_matrice = [row[:] for row in matrice[1:]]
 
-def addition_matrices(matrice_1: list[list[int]], matrice_2: list[list[int]]):
-    matrice = gen_matrice_nulle(matrice_1)
+    for line in sous_matrice:
+        line.pop(index)
 
-    for index_de_la_ligne, ligne in enumerate(matrice):
-        matrice[index_de_la_ligne] = [
-            matrice_1[index_de_la_ligne][index_dans_ligne] +
-            matrice_2[index_de_la_ligne][index_dans_ligne]
-            for index_dans_ligne, _ in enumerate(ligne)
-        ]
-
-    return matrice
-
-
-def soustraction_matrices(matrice_1: list[list[int]], matrice_2: list[list[int]]):
-    matrice = gen_matrice_nulle(matrice_1)
-
-    for index_de_la_ligne, ligne in enumerate(matrice):
-        matrice[index_de_la_ligne] = [
-            matrice_1[index_de_la_ligne][index_dans_ligne] -
-            matrice_2[index_de_la_ligne][index_dans_ligne]
-            for index_dans_ligne, _ in enumerate(ligne)
-        ]
-
-    return matrice
-
-
-def multiplication_nombre_avec_matrice(nombre: int, matrice: list[list[int]]):
-    matrice = matrice.copy()
-
-    for index_de_la_ligne, ligne in enumerate(matrice):
-        matrice[index_de_la_ligne] = [
-            matrice[index_de_la_ligne][index_dans_ligne] * nombre
-            for index_dans_ligne, _ in enumerate(ligne)
-        ]
-
-    return matrice
+    return sous_matrice
 
 
 def determinant(matrice: list[list[int]]):
-    matrice = matrice.copy()
+    matrice = matrice[0:]
+    if len(matrice) == 2:
+        return matrice[0][0] * matrice[1][1] - matrice[1][0] * matrice[0][1]
+
     main_line = matrice[0]
+
+    sum = 0
+
+    for index, a in enumerate(main_line):
+        if a == 0:
+            # on saute les 0 car 0*x = 0
+            continue
+
+        sous_matrice = trouver_sous_matrice(
+            index, matrice)
+
+        sous_det = determinant(sous_matrice)
+        sum += ((-1) ** index) * a * sous_det
+
+    return sum

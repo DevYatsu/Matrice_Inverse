@@ -1,4 +1,4 @@
-from determinant import soustraction_matrices, addition_matrices, multiplication_nombre_avec_matrice
+from determinant import determinant
 from utils import gen_matrice_inverse
 
 
@@ -20,23 +20,27 @@ def verif_si_matrice_valide(matrice: list[list[int]]):
 
 def inverse(matrice: list[list[int]]):
     verif_si_matrice_valide(matrice)
-    matrice_inv_initiale = gen_matrice_inverse(matrice.copy())
+    det = determinant(matrice)
+    if det == 0:
+        raise Exception(
+            f"Determinant = 0! Pas d'inverse existant pour la matrice: {matrice}")
+    matrice_inv_initiale = gen_matrice_inverse(matrice)
 
     return ""
 
 
 matrice_0 = [
-    [0, 0],
+    [4, 5],
     [1, 1]
 ]
 matrice_1 = [
     [0, 0, 5, 6],
     [1, 1, 2, 4],
-    [9, 3, 2, 4],
+    [9, 3, 7, 6],
     [8, 0, 2, 4]
 ]
 
-inverse(matrice_0)
-inverse(matrice_1)
+# inverse(matrice_0)
+# inverse(matrice_1)
 
-print(multiplication_nombre_avec_matrice(2, matrice_1))
+print(determinant(matrice_1))
