@@ -20,11 +20,15 @@ def verif_si_matrice_valide(matrice: list[list[int]]):
 
 def inverse(matrice: list[list[int]]):
     verif_si_matrice_valide(matrice)
+    
     det = determinant(matrice)
     if det == 0:
         raise Exception(
             f"Determinant = 0! Pas d'inverse existant pour la matrice: {matrice}")
+        
     matrice_inv_initiale = gen_matrice_inverse(matrice)
+    
+    # maintenant definir la ligne pivot puis annuler les valeurs pour trouver des 0 sauf dans les diagonales
 
     return ""
 
@@ -43,4 +47,5 @@ matrice_1 = [
 # inverse(matrice_0)
 # inverse(matrice_1)
 
-print(determinant(matrice_1))
+print(determinant(
+    matrice_0))
