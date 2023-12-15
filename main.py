@@ -1,4 +1,4 @@
-from determinant import soustraction_matrices, addition_matrices
+from determinant import soustraction_matrices, addition_matrices, multiplication_nombre_avec_matrice
 from utils import gen_matrice_inverse
 
 
@@ -38,3 +38,5 @@ matrice_1 = [
 
 inverse(matrice_0)
 inverse(matrice_1)
+
+print(multiplication_nombre_avec_matrice(2, matrice_1))

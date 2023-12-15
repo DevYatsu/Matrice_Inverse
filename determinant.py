@@ -25,3 +25,20 @@ def soustraction_matrices(matrice_1: list[list[int]], matrice_2: list[list[int]]
         ]
 
     return matrice
+
+
+def multiplication_nombre_avec_matrice(nombre: int, matrice: list[list[int]]):
+    matrice = matrice.copy()
+
+    for index_de_la_ligne, ligne in enumerate(matrice):
+        matrice[index_de_la_ligne] = [
+            matrice[index_de_la_ligne][index_dans_ligne] * nombre
+            for index_dans_ligne, _ in enumerate(ligne)
+        ]
+
+    return matrice
+
+
+def determinant(matrice: list[list[int]]):
+    matrice = matrice.copy()
+    main_line = matrice[0]
