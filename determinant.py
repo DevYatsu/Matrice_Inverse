@@ -1,26 +1,4 @@
 def trouver_sous_matrice(index: int, matrice: list[list[int]]):
-    # trouver la matrice qu'il faut multiplier par le nombre de la ligne d'en haut avec son index
-    # EXEMPLE CI-DESSOUS
-    # Matrice 3x3
-    # [
-    #  [a1,a2,a3],
-    #  [a4,a5,a6]
-    #  [a7,a8,a9]
-    # ]
-    # On veut trouver le determinant de la sous-matrice à multiplier avec le nombre a1
-    # cette sous matrice est
-    # det([
-    #  [a5, a6],
-    #  [a8, a9]
-    # ])
-    # Puis a2
-    # cette sous matrice est
-    # det([
-    #  [a4, a6],
-    #  [a7, a9]
-    # ])
-    # On soustrait les resultats obtenus puis on additionne le resultat de a3 par [[a4,a5], [a7, a8]]
-
     sous_matrice = [row[:] for row in matrice[1:]]
 
     for line in sous_matrice:
@@ -30,6 +8,44 @@ def trouver_sous_matrice(index: int, matrice: list[list[int]]):
 
 
 def determinant(matrice: list[list[int]]):
+    # calculer le determinant revient à faire des soustractions et additions de la multiplication d'un coefficient avec une sous-matrice de notre matrice
+    # On sait calculer le determinant d'une matrice 2*2
+    # Pour obtenir le determinant d'un matrice de taille supérieure, il faut donc se retrouver à un moment ou un autre avec une matrice 2*2
+    # EXEMPLE CI-DESSOUS
+    # Matrice 3x3
+    # [
+    #  [a1,a2,a3],
+    #  [a4,a5,a6]
+    #  [a7,a8,a9]
+    # ]
+    # On peut prendre les coefficients sur une ligne ou une colonne,
+    # Le plus simple est de prendre les coefficients de la 1ere ligne de la matrice
+    # Ainsi on se retrouve avec [a1, a2, a3] comme coefficients
+    #
+    # On multiplie a1 avec le déterminant de la matrice formée en supprimant les colonnes et lignes contenant a1
+    # det([
+    #  [a5, a6],
+    #  [a8, a9]
+    # ])
+    # Puis on fait de même avec a2
+    # Ici on prend les 2 colonnes qui ne se trouvent pas dans la ligne ou la colonne de a2
+    # C'est à dire [a4] et [a6] soit la matrice [a4, a6]
+    #              [a7]    [a9]                 [a7, a9]
+    # Ainsi on a:
+    # det([
+    #  [a4, a6],
+    #  [a7, a9]
+    # ])
+    # Puis on fait de même avec a3
+    # det([
+    #  [a4, a5],
+    #  [a7, a8]
+    # ])
+    #
+    # Pour calculer le determinant de notre MATRICE 3*3: 
+    # a1 * det([[a5, a6], [a8, a9]]) - a2 * det([[a4, a6],[a7, a9]]) + a3 * det([[a4, a5],[a7, a8]])
+    # Il faut alterner entre addition et soustraction
+    
     matrice = matrice[0:]
     if len(matrice) == 2:
         return matrice[0][0] * matrice[1][1] - matrice[1][0] * matrice[0][1]
