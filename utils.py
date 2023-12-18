@@ -47,3 +47,13 @@ def multiplication_nombre_avec_matrice(nombre: int, matrice: list[list[int]]):
         ]
 
     return matrice
+
+
+def print_matrice(matrice: list[list[int]]):
+    string = "[\n"
+    for line in matrice:
+        string += "  "
+        string += "\t".join([str(element) for element in line]) + "\n"
+
+    string += "]"
+    print(string)

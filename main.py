@@ -1,5 +1,5 @@
 from determinant import determinant
-from utils import gen_matrice_inverse
+from utils import gen_matrice_inverse, print_matrice
 
 
 def verif_si_matrice_valide(matrice: list[list[int]]):
@@ -35,27 +35,32 @@ def inverse(matrice: list[list[int]]):
     #     matrice
 
     for colonne in range(len(matrice)):
-        for i in range(len(matrice)):
-            if colonne == i:
+        for ligne in range(len(matrice)):
+            if colonne == ligne:
                 continue
 
             pivot = matrice[colonne]
-            coefficient = matrice[i][colonne]
-            matrice[i] = [num * pivot[colonne] - coefficient *
-                          pivot[i] for i, num in enumerate(matrice[i])]
+            coefficient = matrice[ligne][colonne]
+
+            matrice[ligne] = [num * pivot[colonne] - coefficient *
+                              pivot[i] for i, num in enumerate(matrice[ligne])]
 
             # on fait pareil avec la matrice inverse
-            matrice_inverse[i] = [num * pivot[colonne] - coefficient *
-                                  pivot[i] for i, num in enumerate(matrice_inverse[i])]
+            matrice_inverse[ligne] = [num * pivot[colonne] - coefficient *
+                                      pivot[i] for i, num in enumerate(matrice_inverse[ligne])]
 
     for ligne in range(len(matrice)):
         coeff = matrice[ligne][ligne]
-        matrice[ligne][ligne] /= coeff  # == 1
+        if coeff != 0:
+            matrice[ligne][ligne] /= coeff  # == 1
 
         for colonne in range(len(matrice_inverse[ligne])):
-            matrice_inverse[ligne][colonne] /= coeff
+            if coeff != 0:
+                matrice_inverse[ligne][colonne] /= coeff
 
-    print(matrice_inverse)
+                print(matrice_inverse)
+    print(matrice)
+    print_matrice(matrice_inverse)
 
     return ""
 
@@ -72,6 +77,13 @@ matrice_1 = [
     [1, 1, 2, 4],
     [9, 3, 7, 6],
     [8, 0, 2, 4]
+]
+
+matrice_2 = [
+    [10475, 000, 5200, 60090],
+    [1760, 100, 2040, 40290],
+    [9102, 300, 7300, 63090],
+    [8010, 00, 2001, 41090]
 ]
 
 # inverse(matrice_0)
