@@ -42,11 +42,11 @@ def determinant(matrice: list[list[int]]):
     #  [a7, a8]
     # ])
     #
-    # Pour calculer le determinant de notre MATRICE 3*3: 
+    # Pour calculer le determinant de notre MATRICE 3*3:
     # a1 * det([[a5, a6], [a8, a9]]) - a2 * det([[a4, a6],[a7, a9]]) + a3 * det([[a4, a5],[a7, a8]])
     # Il faut alterner entre addition et soustraction
-    
-    matrice = matrice[0:]
+
+    matrice = matrice[:]
     if len(matrice) == 2:
         return matrice[0][0] * matrice[1][1] - matrice[1][0] * matrice[0][1]
 

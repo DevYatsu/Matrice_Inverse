@@ -23,6 +23,7 @@ def inverse(matrice: list[list[int]]):
 
     det = determinant(matrice)
     if det == 0:
+        # mauvaise pratique pour créer des erreurs mais ce n'est pas important ici
         raise Exception(
             f"Determinant = 0! Pas d'inverse existant pour la matrice: {matrice}")
 
@@ -33,11 +34,29 @@ def inverse(matrice: list[list[int]]):
     # while MATRICE_INVERSE != matrice:
     #     matrice
 
-    for i in range(1, len(matrice)):
-        pivot = matrice[0]
-        ligne = matrice[i]
-        matrice[i] = [num*pivot[0] - ligne[0]*num for num in ligne]
-    print(matrice)
+    for colonne in range(len(matrice)):
+        for i in range(len(matrice)):
+            if colonne == i:
+                continue
+
+            pivot = matrice[colonne]
+            coefficient = matrice[i][colonne]
+            matrice[i] = [num * pivot[colonne] - coefficient *
+                          pivot[i] for i, num in enumerate(matrice[i])]
+
+            # on fait pareil avec la matrice inverse
+            matrice_inverse[i] = [num * pivot[colonne] - coefficient *
+                                  pivot[i] for i, num in enumerate(matrice_inverse[i])]
+
+    for ligne in range(len(matrice)):
+        coeff = matrice[ligne][ligne]
+        matrice[ligne][ligne] /= coeff  # == 1
+
+        for colonne in range(len(matrice_inverse[ligne])):
+            matrice_inverse[ligne][colonne] /= coeff
+
+    print(matrice_inverse)
+
     return ""
 
 
@@ -57,6 +76,3 @@ matrice_1 = [
 
 # inverse(matrice_0)
 inverse(matrice_1)
-
-print(determinant(
-    matrice_0))
