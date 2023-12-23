@@ -1,17 +1,17 @@
-def gen_matrice_nulle(matrice: list[list[int]]):
+def gen_matrice_nulle(matrice: list[list[float]]):
     # fonction utilisée pour éviter de modifier les valeurs de la matrice initiale directement
 
     return list(map(lambda x: [0] * len(x), matrice))
 
 
-def gen_matrice_inverse(matrice_base: list[list[int]]):
-    matrice = gen_matrice_nulle(matrice_base)
-    for i, _ in enumerate(matrice):
-        matrice[i][i] = 1
+def gen_matrice_inverse(size: int):
+    matrice = [[0.0] * size for _ in range(size)]
+    for i in range(size):
+        matrice[i][i] = 1.0
     return matrice
 
 
-def addition_matrices(matrice_1: list[list[int]], matrice_2: list[list[int]]):
+def addition_matrices(matrice_1: list[list[float]], matrice_2: list[list[float]]):
     matrice = gen_matrice_nulle(matrice_1)
 
     for index_de_la_ligne, ligne in enumerate(matrice):
@@ -24,7 +24,7 @@ def addition_matrices(matrice_1: list[list[int]], matrice_2: list[list[int]]):
     return matrice
 
 
-def soustraction_matrices(matrice_1: list[list[int]], matrice_2: list[list[int]]):
+def soustraction_matrices(matrice_1: list[list[float]], matrice_2: list[list[float]]):
     matrice = gen_matrice_nulle(matrice_1)
 
     for index_de_la_ligne, ligne in enumerate(matrice):
@@ -37,7 +37,7 @@ def soustraction_matrices(matrice_1: list[list[int]], matrice_2: list[list[int]]
     return matrice
 
 
-def multiplication_nombre_avec_matrice(nombre: int, matrice: list[list[int]]):
+def multiplication_nombre_avec_matrice(nombre: float, matrice: list[list[float]]):
     matrice = matrice[0:]
 
     for index_de_la_ligne, ligne in enumerate(matrice):
@@ -49,7 +49,7 @@ def multiplication_nombre_avec_matrice(nombre: int, matrice: list[list[int]]):
     return matrice
 
 
-def print_matrice(matrice: list[list[int]]):
+def print_matrice(matrice: list[list[float]]):
     string = "[\n"
     for line in matrice:
         string += "  "

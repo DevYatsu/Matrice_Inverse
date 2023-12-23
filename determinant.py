@@ -1,4 +1,4 @@
-def trouver_sous_matrice(index: int, matrice: list[list[int]]):
+def trouver_sous_matrice(index: int, matrice: list[list[float]]):
     sous_matrice = [row[:] for row in matrice[1:]]
 
     for line in sous_matrice:
@@ -7,7 +7,7 @@ def trouver_sous_matrice(index: int, matrice: list[list[int]]):
     return sous_matrice
 
 
-def determinant(matrice: list[list[int]]):
+def determinant(matrice: list[list[float]]):
     # calculer le determinant revient à faire des soustractions et additions de la multiplication d'un coefficient avec une sous-matrice de notre matrice
     # On sait calculer le determinant d'une matrice 2*2
     # Pour obtenir le determinant d'un matrice de taille supérieure, il faut donc se retrouver à un moment ou un autre avec une matrice 2*2
@@ -52,7 +52,7 @@ def determinant(matrice: list[list[int]]):
 
     main_line = matrice[0]
 
-    sum = 0
+    result_sum = 0.0
 
     for index, a in enumerate(main_line):
         if a == 0:
@@ -62,7 +62,7 @@ def determinant(matrice: list[list[int]]):
         sous_matrice = trouver_sous_matrice(
             index, matrice)
 
-        sous_det = determinant(sous_matrice)
-        sum += ((-1) ** index) * a * sous_det
+        sous_det: float = determinant(sous_matrice)
+        result_sum += float((-1) ** index) * a * sous_det
 
-    return sum
+    return float(result_sum)

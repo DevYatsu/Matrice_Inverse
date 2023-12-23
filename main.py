@@ -2,7 +2,7 @@ from determinant import determinant
 from utils import gen_matrice_inverse, print_matrice
 
 
-def verif_si_matrice_valide(matrice: list[list[int]]):
+def verif_si_matrice_valide(matrice: list[list[float]]):
     longueur_matrice = len(matrice)
 
     for ligne in matrice:
@@ -18,16 +18,18 @@ def verif_si_matrice_valide(matrice: list[list[int]]):
                 f"Petit Malin! Ta matrice ne doit contenir que des nombres! \n Or ce n'est pas le cas pour {matrice}!")
 
 
-def inverse(matrice: list[list[int]]):
+def inverse(matrice: list[list[float]]):
     verif_si_matrice_valide(matrice)
 
     det = determinant(matrice)
-    if det == 0:
+    print(f"determinant: {det}")
+
+    if det == 0.0:
         # mauvaise pratique pour créer des erreurs mais ce n'est pas important ici
         raise Exception(
-            f"Determinant = 0! Pas d'inverse existant pour la matrice: {matrice}")
+            f"det = 0! Pas d'inverse existant pour la matrice: {matrice}")
 
-    MATRICE_INVERSE = gen_matrice_inverse(matrice)
+    MATRICE_INVERSE = gen_matrice_inverse(len(matrice))
     matrice_inverse = [row[:] for row in MATRICE_INVERSE[:]]
 
     # maintenant definir la ligne pivot puis annuler les valeurs pour trouver des 0 sauf dans les diagonales
@@ -58,7 +60,6 @@ def inverse(matrice: list[list[int]]):
             if coeff != 0:
                 matrice_inverse[ligne][colonne] /= coeff
 
-                print(matrice_inverse)
     print(matrice)
     print_matrice(matrice_inverse)
 
