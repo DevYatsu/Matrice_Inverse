@@ -60,7 +60,6 @@ def inverse(matrice: list[list[float]]):
 
     print("Inverse Matrix:")
     print_matrice(matrice_inverse)
-    print(matrice)
 
     return matrice_inverse
 
