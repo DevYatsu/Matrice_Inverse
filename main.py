@@ -33,25 +33,26 @@ def inverse(matrice: list[list[float]]):
     matrice_inverse = [
         [1.0 if i == j else 0.0 for j in range(n)] for i in range(n)]
 
-    # maintenant definir la ligne pivot puis annuler les valeurs pour trouver des 0 sauf dans les diagonales
-    # while MATRICE_INVERSE != matrice:
-    #     matrice
-
     for numero_ligne_pivot in range(n):
+        # element de la diagonale de la matrice dans la ligne correspondante
         pivot = matrice[numero_ligne_pivot][numero_ligne_pivot]
 
-        # Scale the pivot row
+        # on fait en sorte que le pivot devienne 1 en divisant chaque element de la ligne pivot par le "pivot"/nombre dans la diagonale
         for j in range(n):
             matrice[numero_ligne_pivot][j] /= pivot
+
+            # on divise aussi dans la matrice inverse
             matrice_inverse[numero_ligne_pivot][j] /= pivot
 
         for i in range(n):
             if i == numero_ligne_pivot:
+                # on saute la ligne pivot
                 continue
 
+            # on recupere le nombre sur la meme colonne que le nombre pivot du debut
             coefficient = matrice[i][numero_ligne_pivot]
 
-            # Subtract the pivot row multiplied by the coefficient
+            # Soustraction de la ligne pivot multipliée par le coefficient pour obtenir des 0 partout sauf diagonales
             for j in range(n):
                 matrice[i][j] -= coefficient * matrice[numero_ligne_pivot][j]
                 matrice_inverse[i][j] -= coefficient * \
@@ -59,6 +60,7 @@ def inverse(matrice: list[list[float]]):
 
     print("Inverse Matrix:")
     print_matrice(matrice_inverse)
+    print(matrice)
 
     return matrice_inverse
 
@@ -68,7 +70,7 @@ matrice_0 = [
     [1, 1]
 ]
 
-m = [[4, 5], [1, 1]]
+m = [[1, 2], [3, 4]]
 
 matrice_1 = [
     [1, 0, 5, 6],
@@ -85,4 +87,4 @@ matrice_2 = [
 ]
 
 # inverse(matrice_0)
-inverse(matrice_1)
+inverse(m)
