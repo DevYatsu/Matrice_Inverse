@@ -1,14 +1,8 @@
 def gen_matrice_nulle(matrice: list[list[float]]):
-    # fonction utilisée pour éviter de modifier les valeurs de la matrice initiale directement
+    n = len(matrice)
+    matrice_nulle = [[0] * n for _ in range(n)]
 
-    return list(map(lambda x: [0] * len(x), matrice))
-
-
-def gen_matrice_inverse(size: int):
-    matrice = [[0.0] * size for _ in range(size)]
-    for i in range(size):
-        matrice[i][i] = 1.0
-    return matrice
+    return matrice_nulle
 
 
 def addition_matrices(matrice_1: list[list[float]], matrice_2: list[list[float]]):

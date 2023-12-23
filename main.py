@@ -1,5 +1,5 @@
 from determinant import determinant
-from utils import gen_matrice_inverse, print_matrice
+from utils import print_matrice
 
 
 def verif_si_matrice_valide(matrice: list[list[float]]):
@@ -29,41 +29,38 @@ def inverse(matrice: list[list[float]]):
         raise Exception(
             f"det = 0! Pas d'inverse existant pour la matrice: {matrice}")
 
-    MATRICE_INVERSE = gen_matrice_inverse(len(matrice))
-    matrice_inverse = [row[:] for row in MATRICE_INVERSE[:]]
+    n = len(matrice)
+    matrice_inverse = [
+        [1.0 if i == j else 0.0 for j in range(n)] for i in range(n)]
 
     # maintenant definir la ligne pivot puis annuler les valeurs pour trouver des 0 sauf dans les diagonales
     # while MATRICE_INVERSE != matrice:
     #     matrice
 
-    for colonne in range(len(matrice)):
-        for ligne in range(len(matrice)):
-            if colonne == ligne:
+    for numero_ligne_pivot in range(n):
+        pivot = matrice[numero_ligne_pivot][numero_ligne_pivot]
+
+        # Scale the pivot row
+        for j in range(n):
+            matrice[numero_ligne_pivot][j] /= pivot
+            matrice_inverse[numero_ligne_pivot][j] /= pivot
+
+        for i in range(n):
+            if i == numero_ligne_pivot:
                 continue
 
-            pivot = matrice[colonne]
-            coefficient = matrice[ligne][colonne]
+            coefficient = matrice[i][numero_ligne_pivot]
 
-            matrice[ligne] = [num * pivot[colonne] - coefficient *
-                              pivot[i] for i, num in enumerate(matrice[ligne])]
+            # Subtract the pivot row multiplied by the coefficient
+            for j in range(n):
+                matrice[i][j] -= coefficient * matrice[numero_ligne_pivot][j]
+                matrice_inverse[i][j] -= coefficient * \
+                    matrice_inverse[numero_ligne_pivot][j]
 
-            # on fait pareil avec la matrice inverse
-            matrice_inverse[ligne] = [num * pivot[colonne] - coefficient *
-                                      pivot[i] for i, num in enumerate(matrice_inverse[ligne])]
-
-    for ligne in range(len(matrice)):
-        coeff = matrice[ligne][ligne]
-        if coeff != 0:
-            matrice[ligne][ligne] /= coeff  # == 1
-
-        for colonne in range(len(matrice_inverse[ligne])):
-            if coeff != 0:
-                matrice_inverse[ligne][colonne] /= coeff
-
-    print(matrice)
+    print("Inverse Matrix:")
     print_matrice(matrice_inverse)
 
-    return ""
+    return matrice_inverse
 
 
 matrice_0 = [
