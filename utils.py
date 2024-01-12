@@ -46,8 +46,8 @@ def multiplication_nombre_avec_matrice(nombre: float, matrice: list[list[float]]
 def print_matrice(matrice: list[list[float]]):
     string = "[\n"
     for line in matrice:
-        string += "  "
-        string += "\t".join([str(element) for element in line]) + "\n"
+        string +=  "\t".join([str(element) if str(element).startswith("-")
+                            else " " + str(element) for element in line]) + "\n"
 
     string += "]"
     print(string)
