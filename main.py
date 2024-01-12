@@ -58,7 +58,7 @@ def inverse(matrice: list[list[float]]):
                 matrice_inverse[i][j] -= coefficient * \
                     matrice_inverse[numero_ligne_pivot][j]
 
-    print("Inverse Matrix:")
+    print("Matrice inverse:")
     print_matrice(matrice_inverse)
 
     return matrice_inverse
@@ -85,5 +85,11 @@ matrice_2 = [
     [8010, 00, 2001, 41090]
 ]
 
+test = [
+    [1,1,2],
+    [1,2,1],
+    [2,1,1]
+]
+
 # inverse(matrice_0)
-inverse(m)
+inverse(test)
